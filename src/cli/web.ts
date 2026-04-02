@@ -21,21 +21,30 @@ export function startWebDashboard(): void {
         return Response.json(getDashboardData());
       }
 
+      if (url.pathname === "/dashboard") {
+        return new Response(HTML, {
+          headers: { "Content-Type": "text/html" },
+        });
+      }
+
       if (url.pathname === "/setup") {
-        const file = Bun.file(resolve(PROJECT_ROOT, "setup.html"));
-        return new Response(file, {
+        return new Response(Bun.file(resolve(PROJECT_ROOT, "setup.html")), {
           headers: { "Content-Type": "text/html" },
         });
       }
 
       if (url.pathname === "/signals") {
-        const file = Bun.file(resolve(PROJECT_ROOT, "signals.html"));
-        return new Response(file, {
+        return new Response(Bun.file(resolve(PROJECT_ROOT, "signals.html")), {
           headers: { "Content-Type": "text/html" },
         });
       }
 
-      return new Response(HTML, {
+      if (url.pathname === "/logo.png") {
+        return new Response(Bun.file(resolve(PROJECT_ROOT, "logo.png")));
+      }
+
+      // Landing page at root
+      return new Response(Bun.file(resolve(PROJECT_ROOT, "landing.html")), {
         headers: { "Content-Type": "text/html" },
       });
     },
