@@ -43,6 +43,24 @@ export function startWebDashboard(): void {
         return new Response(Bun.file(resolve(PROJECT_ROOT, "logo.png")));
       }
 
+      if (url.pathname === "/logo.svg") {
+        return new Response(Bun.file(resolve(PROJECT_ROOT, "logo.svg")), {
+          headers: { "Content-Type": "image/svg+xml" },
+        });
+      }
+
+      if (url.pathname === "/favicon.ico") {
+        return new Response(Bun.file(resolve(PROJECT_ROOT, "favicon.ico")));
+      }
+
+      if (url.pathname === "/favicon-32.png") {
+        return new Response(Bun.file(resolve(PROJECT_ROOT, "favicon-32.png")));
+      }
+
+      if (url.pathname === "/apple-touch-icon.png") {
+        return new Response(Bun.file(resolve(PROJECT_ROOT, "apple-touch-icon.png")));
+      }
+
       // Landing page at root
       return new Response(Bun.file(resolve(PROJECT_ROOT, "landing.html")), {
         headers: { "Content-Type": "text/html" },
