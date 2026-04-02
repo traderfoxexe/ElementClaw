@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ElementClaw — Setup Guide</title>
+<meta name="description" content="Step-by-step guide to set up ElementClaw, the automated Polymarket weather trading bot.">
+<link rel="icon" type="image/png" href="logo.png">
+<meta name="theme-color" content="#0d1a14">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Michroma&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  --bg: #0d1a14;
+  --bg2: #07110c;
+  --surface: rgba(26,58,42,0.4);
+  --surface-solid: #11241a;
+  --border: rgba(45,90,65,0.2);
+  --border-solid: #1a3a2a;
+  --border-bright: #2d5a41;
+  --accent: #4ade80;
+  --text: #e0e7e3;
+  --dim: #7a9c8a;
+  --dim2: #9ab8a8;
+  --red: #ff4466;
+  --yellow: #ffd60a;
+  --font-d: 'Michroma', sans-serif;
+  --font-m: 'Space Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-m);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+  padding: 40px;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+.card {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 24px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+.card:hover {
+  border-color: var(--accent);
+  background: rgba(26,58,42,0.8);
+}
+
+.mono-label {
+  font-family: var(--font-m);
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 8px;
+  color: var(--dim);
+}
+
+.nav {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(45,90,65,0.15);
+  margin-bottom: 10px;
+}
+.nav-logo {
+  font-family: var(--font-d);
+  font-size: 12px;
+  color: var(--accent);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  display: flex; align-items: center; gap: 8px;
+}
+.nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+.nav-links a {
+  font-family: var(--font-m);
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--dim); text-decoration: none; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-right { display: flex; align-items: center; gap: 10px; }
+.btn {
+  font-family: var(--font-m); font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.06em; padding: 7px 16px;
+  border: 1px solid var(--border-bright); background: none;
+  color: var(--dim2); cursor: pointer; text-decoration: none;
+  transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px;
+}
+.btn:hover { color: var(--text); background: rgba(74,222,128,0.06); }
+.btn-fill {
+  background: var(--border-bright); color: #fff; border-color: var(--border-bright);
+}
+.btn-fill:hover { background: var(--accent); color: var(--bg); }
+
+.page-header {
+  grid-column: 1 / -1;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgba(45,90,65,0.3);
+  margin-bottom: 10px;
+}
+.page-title {
+  font-family: var(--font-d);
+  font-size: clamp(24px, 4vw, 48px);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  color: #fff;
+  margin-bottom: 12px;
+}
+.page-sub {
+  font-size: 13px;
+  color: var(--dim2);
+  line-height: 1.7;
+  max-width: 640px;
+}
+
+.sec-label {
+  grid-column: 1 / -1;
+  font-family: var(--font-m);
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--dim);
+  padding: 30px 0 10px;
+  border-bottom: 1px solid rgba(45,90,65,0.15);
+  margin-bottom: 10px;
+}
+
+.step-row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.step-card {
+  padding: 28px 28px;
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+.step-num {
+  font-family: var(--font-m); font-size: 9px; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--accent);
+  border: 1px solid rgba(74,222,128,0.22); background: rgba(74,222,128,0.08);
+  padding: 3px 10px; display: inline-block; text-align: center;
+  white-space: nowrap;
+}
+.step-title {
+  font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 10px;
+}
+.step-desc {
+  font-size: 11px; color: var(--dim2); line-height: 1.75;
+}
+.step-desc strong { color: var(--text); }
+.step-desc a { color: var(--accent); text-decoration: none; }
+.step-desc a:hover { text-decoration: underline; }
+
+.code-block {
+  background: var(--bg2);
+  border: 1px solid var(--border-solid);
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-family: var(--font-m);
+  font-size: 11px;
+  color: var(--accent);
+  position: relative;
+  overflow-x: auto;
+  white-space: pre;
+  line-height: 1.7;
+}
+.code-block .copy-code {
+  position: absolute;
+  top: 8px; right: 8px;
+  font-family: var(--font-m); font-size: 9px; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--dim); background: var(--bg2);
+  border: 1px solid var(--border-solid); padding: 3px 8px; cursor: pointer;
+}
+.code-block .copy-code:hover { color: var(--accent); border-color: var(--accent); }
+
+.env-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 11px;
+}
+.env-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(26,58,42,0.25);
+  vertical-align: top;
+}
+.env-table td:first-child {
+  color: var(--accent);
+  font-weight: 700;
+  white-space: nowrap;
+  width: 220px;
+}
+.env-table td:last-child { color: var(--dim2); }
+
+.warning-box {
+  background: rgba(255,214,10,0.06);
+  border: 1px solid rgba(255,214,10,0.2);
+  padding: 14px 18px;
+  margin: 12px 0;
+  font-size: 11px;
+  color: var(--yellow);
+  line-height: 1.65;
+}
+
+.back-link {
+  grid-column: 1 / -1;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(45,90,65,0.2);
+}
+.back-link a {
+  font-family: var(--font-m); font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--dim); text-decoration: none;
+}
+.back-link a:hover { color: var(--accent); }
+
+.tech-footer {
+  grid-column: 1 / -1;
+  margin-top: 40px;
+  border-top: 1px solid rgba(45,90,65,0.4);
+  padding-top: 20px;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  flex-wrap: wrap; gap: 20px;
+}
+.footer-links { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; }
+.footer-links a {
+  font-family: var(--font-m); font-size: 9px; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--dim); text-decoration: none; transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--text); }
+
+@media (max-width: 1100px) {
+  .grid { padding: 20px; gap: 14px; }
+}
+@media (max-width: 640px) {
+  .grid { padding: 14px; gap: 10px; }
+  .nav-links { display: none; }
+  .step-card { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="grid">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="/" class="nav-logo">
+      <img src="/logo.png" alt="ElementClaw" style="height:32px;width:auto;" onerror="this.onerror=null;this.src='logo.png'">
+      ElementClaw
+    </a>
+    <ul class="nav-links">
+      <li><a href="/#features">Features</a></li>
+      <li><a href="/#how">How It Works</a></li>
+      <li><a href="/#cities">Cities</a></li>
+      <li><a href="/signals">Signals</a></li>
+      <li><a href="/#docs">Docs</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="https://github.com/traderfoxexe/ElementClaw" target="_blank" class="btn">GitHub</a>
+      <a href="/dashboard" target="_blank" class="btn btn-fill">Dashboard &rarr;</a>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <header class="page-header">
+    <h1 class="page-title">Setup Guide</h1>
+    <p class="page-sub">Go from zero to running ElementClaw in 7 steps. Paper trade first, then go live when you see the edge.</p>
+  </header>
+
+  <div class="sec-label">SETUP // 7 STEPS TO DEPLOYMENT</div>
+
+  <div class="step-row">
+
+    <!-- STEP 1 -->
+    <div class="card step-card">
+      <div><span class="step-num">Step 01</span></div>
+      <div>
+        <div class="step-title">Create a Polygon Wallet</div>
+        <div class="step-desc">
+          Install <a href="https://metamask.io/" target="_blank">MetaMask</a> or <a href="https://rabby.io/" target="_blank">Rabby</a> browser extension. Create a new wallet or import an existing one.<br><br>
+          <strong>Switch to Polygon network:</strong> In MetaMask, click the network dropdown and select "Polygon Mainnet". If it is not listed, add it manually:<br>
+          <table class="env-table">
+            <tr><td>Network Name</td><td>Polygon Mainnet</td></tr>
+            <tr><td>RPC URL</td><td>https://polygon-rpc.com</td></tr>
+            <tr><td>Chain ID</td><td>137</td></tr>
+            <tr><td>Currency</td><td>MATIC</td></tr>
+          </table>
+          <div class="warning-box">
+            Save your private key securely. You will need it for the .env file. Never share it or commit it to git.
+          </div>
+          <strong>Export your private key:</strong> MetaMask &rarr; Account Details &rarr; Export Private Key. Copy it somewhere safe.
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="card step-card">
+      <div><span class="step-num">Step 02</span></div>
+      <div>
+        <div class="step-title">Fund with USDC</div>
+        <div class="step-desc">
+          You need <strong>USDC on Polygon</strong> (not Ethereum mainnet). Two options:<br><br>
+          <strong>Option A: Bridge from Ethereum</strong><br>
+          Go to <a href="https://bridge.polygon.technology" target="_blank">bridge.polygon.technology</a>, connect your wallet, and bridge USDC from Ethereum to Polygon.<br><br>
+          <strong>Option B: Buy on an exchange</strong><br>
+          Buy USDC on Coinbase, Binance, or Kraken. Withdraw directly to your Polygon wallet address (make sure to select the Polygon network when withdrawing).<br><br>
+          You will also need a small amount of <strong>MATIC</strong> (the Polygon gas token) for transaction fees. A few cents worth is enough for hundreds of trades.
+          <div class="warning-box">
+            Minimum recommended bankroll: $50 USDC. Start small, verify the edge, then scale up.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="card step-card">
+      <div><span class="step-num">Step 03</span></div>
+      <div>
+        <div class="step-title">Get a VPS</div>
+        <div class="step-desc">
+          ElementClaw runs 24/7 on a cheap VPS. A <strong>$6/month DigitalOcean droplet</strong> in NYC is ideal (low latency to Polymarket).<br><br>
+          <strong>1.</strong> Sign up at <a href="https://www.digitalocean.com/" target="_blank">digitalocean.com</a><br>
+          <strong>2.</strong> Create a Droplet: Ubuntu 22.04, Basic, $6/mo, NYC datacenter<br>
+          <strong>3.</strong> SSH into your droplet and install Bun:
+          <div class="code-block"><button class="copy-code" onclick="copyCode(this)">Copy</button>curl -fsSL https://bun.sh/install | bash</div>
+          <strong>4.</strong> Verify installation:
+          <div class="code-block"><button class="copy-code" onclick="copyCode(this)">Copy</button>bun --version</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="card step-card">
+      <div><span class="step-num">Step 04</span></div>
+      <div>
+        <div class="step-title">Install ElementClaw</div>
+        <div class="step-desc">
+          Clone the repo and install dependencies:
+          <div class="code-block"><button class="copy-code" onclick="copyCode(this)">Copy</button>git clone https://github.com/traderfoxexe/ElementClaw.git
+cd ElementClaw
+bun install</div>
+          This installs all dependencies including the Polymarket CLOB client and SQLite bindings.
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="card step-card">
+      <div><span class="step-num">Step 05</span></div>
+      <div>
+        <div class="step-title">Configure Environment</div>
+        <div class="step-desc">
+          Create a <code style="color:var(--accent)">.env</code> file in the project root:
+          <div class="code-block"><button class="copy-code" onclick="copyCode(this)">Copy</button>POLYGON_PRIVATE_KEY=your_private_key_here
+MODE=paper
+BANKROLL_USDC=50</div>
+          <strong>All environment variables:</strong>
+          <table class="env-table">
+            <tr><td>POLYGON_PRIVATE_KEY</td><td>Your Polygon wallet private key (required for live mode)</td></tr>
+            <tr><td>MODE</td><td>"paper" or "live" (start with paper)</td></tr>
+            <tr><td>BANKROLL_USDC</td><td>Starting capital in USDC (default: 50)</td></tr>
+            <tr><td>MIN_EDGE_PCT</td><td>Minimum edge to trade (default: 8%)</td></tr>
+            <tr><td>KELLY_FRACTION</td><td>Kelly sizing fraction (default: 0.25)</td></tr>
+            <tr><td>MAX_OPEN_POSITIONS</td><td>Max concurrent trades (default: 10)</td></tr>
+          </table>
+          <div class="warning-box">
+            Never commit .env to git. It is already in .gitignore.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 6 -->
+    <div class="card step-card">
+      <div><span class="step-num">Step 06</span></div>
+      <div>
+        <div class="step-title">Paper Trade First</div>
+        <div class="step-desc">
+          Run the bot in paper mode to verify the edge with zero risk:
+          <div class="code-block"><button class="copy-code" onclick="copyCode(this)">Copy</button>bun run paper</div>
+          This runs a continuous loop that:
+          <br><br>
+          <strong>1.</strong> Fetches GFS + ECMWF ensemble forecasts for 6 cities<br>
+          <strong>2.</strong> Discovers active Polymarket weather brackets<br>
+          <strong>3.</strong> Calculates model probability vs. market price<br>
+          <strong>4.</strong> Logs trades it <em>would</em> place (no real money)<br>
+          <strong>5.</strong> Tracks P&amp;L as if the trades were real<br><br>
+          Open the dashboard at <code style="color:var(--accent)">http://localhost:3456</code> to see positions, signals, and equity curve in real-time.<br><br>
+          Run paper mode for at least a few days before going live to build confidence.
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 7 -->
+    <div class="card step-card">
+      <div><span class="step-num">Step 07</span></div>
+      <div>
+        <div class="step-title">Go Live</div>
+        <div class="step-desc">
+          When you are confident in the edge, switch to live mode:
+          <div class="code-block"><button class="copy-code" onclick="copyCode(this)">Copy</button># In your .env file, change:
+MODE=live</div>
+          For production, set up cron jobs instead of the continuous loop:
+          <div class="code-block"><button class="copy-code" onclick="copyCode(this)">Copy</button># Edit crontab
+crontab -e
+
+# Add these lines:
+# Scan every 30 minutes
+0,30 * * * * cd /root/ElementClaw && bun run scan >> /var/log/elementclaw-scan.log 2>&1
+
+# Settle hourly
+15 * * * * cd /root/ElementClaw && bun run settle >> /var/log/elementclaw-settle.log 2>&1</div>
+          <strong>What this does:</strong><br><br>
+          <strong>Scan (every 30 min):</strong> Fetches forecasts, discovers markets, finds edge, executes trades<br>
+          <strong>Settle (hourly):</strong> Checks actual temperatures from Iowa State Mesonet, resolves positions, updates P&amp;L<br><br>
+          Monitor via the web dashboard at <code style="color:var(--accent)">http://your-vps-ip:3456</code>
+          <div class="warning-box">
+            Start with a small bankroll ($50). Scale up only after seeing consistent positive P&amp;L over multiple days.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BACK LINK -->
+  <div class="back-link">
+    <a href="/">&larr; Back to Home</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="tech-footer">
+    <div>
+      <span class="mono-label">Powered By</span>
+      <span style="font-size:14px;font-weight:bold;color:#fff;">OPENCLAW V.1.0</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="/#features">Features</a></li>
+      <li><a href="/#how">How It Works</a></li>
+      <li><a href="/#cities">Cities</a></li>
+      <li><a href="/signals">Signals</a></li>
+      <li><a href="/#docs">Docs</a></li>
+      <li><a href="/setup">Setup</a></li>
+      <li><a href="/dashboard" target="_blank">Dashboard</a></li>
+    </ul>
+    <div style="text-align:right;">
+      <span class="mono-label">License</span>
+      <span style="font-size:11px;color:var(--dim);">MIT &middot; Bun + TypeScript</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+function copyCode(btn) {
+  var block = btn.parentElement;
+  var text = block.textContent.replace('Copy', '').trim();
+  if (navigator.clipboard) navigator.clipboard.writeText(text);
+  btn.textContent = 'Copied!';
+  setTimeout(function() { btn.textContent = 'Copy'; }, 1800);
+}
+</script>
+</body>
+</html>

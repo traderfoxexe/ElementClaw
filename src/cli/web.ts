@@ -1,8 +1,11 @@
 import { getDb } from "../store/db.js";
 import { getPnLSummary } from "../settlement/pnl.js";
 import { logger } from "../logger.js";
+import { resolve, dirname } from "path";
+import { fileURLToPath } from "url";
 
 const PORT = 3456;
+const PROJECT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 
 /**
  * Simple web dashboard served by Bun.
@@ -16,6 +19,20 @@ export function startWebDashboard(): void {
 
       if (url.pathname === "/api/data") {
         return Response.json(getDashboardData());
+      }
+
+      if (url.pathname === "/setup") {
+        const file = Bun.file(resolve(PROJECT_ROOT, "setup.html"));
+        return new Response(file, {
+          headers: { "Content-Type": "text/html" },
+        });
+      }
+
+      if (url.pathname === "/signals") {
+        const file = Bun.file(resolve(PROJECT_ROOT, "signals.html"));
+        return new Response(file, {
+          headers: { "Content-Type": "text/html" },
+        });
       }
 
       return new Response(HTML, {

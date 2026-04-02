@@ -1,3 +1,4 @@
+<!-- Routes: / (landing), /setup (setup.html), /signals (signals.html), /dashboard (Bun server :3456) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -563,6 +564,7 @@ details[open] summary::after { content: '\2212'; color: var(--accent); }
       <li><a href="#features">Features</a></li>
       <li><a href="#how">How It Works</a></li>
       <li><a href="#cities">Cities</a></li>
+      <li><a href="/signals">Signals</a></li>
       <li><a href="#docs">Docs</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
@@ -644,7 +646,7 @@ details[open] summary::after { content: '\2212'; color: var(--accent); }
         Polymarket pays real USDC for correct weather predictions. Most traders guess. ElementClaw uses 122 ensemble forecast models to find mispriced markets and trade them automatically &mdash; so you profit while you sleep.
       </p>
       <div class="hero-cta">
-        <a href="#how" class="btn btn-fill">Start Paper Trading</a>
+        <a href="/setup" class="btn btn-fill">Start Paper Trading</a>
         <a href="/dashboard" target="_blank" class="btn">See Live Dashboard</a>
       </div>
       <div class="badge-strip">
@@ -925,7 +927,7 @@ details[open] summary::after { content: '\2212'; color: var(--accent); }
     <div class="cta-h2">Your edge is waiting</div>
     <p class="cta-sub">Paper trade with zero risk. See the edge for yourself. When you&rsquo;re ready, flip to live and start earning USDC.</p>
     <div class="cta-actions">
-      <a href="#how" class="btn btn-fill">Get Started</a>
+      <a href="/setup" class="btn btn-fill">Get Started</a>
       <a href="/dashboard" target="_blank" class="btn">Open Dashboard</a>
     </div>
   </div>
@@ -940,8 +942,10 @@ details[open] summary::after { content: '\2212'; color: var(--accent); }
       <li><a href="#features">Features</a></li>
       <li><a href="#how">How It Works</a></li>
       <li><a href="#cities">Cities</a></li>
+      <li><a href="/signals">Signals</a></li>
       <li><a href="#docs">Docs</a></li>
       <li><a href="#faq">FAQ</a></li>
+      <li><a href="/setup">Setup</a></li>
       <li><a href="/dashboard" target="_blank">Dashboard</a></li>
     </ul>
     <div style="text-align:right;">
@@ -1047,6 +1051,43 @@ window.addEventListener('scroll', function() {
     megaTitle.style.opacity = Math.max(0, 1 - s / 500);
   }
 });
+
+// ── Live P&L fetch from /api/data ──
+function fetchLiveStats() {
+  fetch('/api/data')
+    .then(function(res) { return res.json(); })
+    .then(function(d) {
+      if (!d || !d.pnl || d.pnl.totalTrades <= 0) return;
+      var cells = document.querySelectorAll('.stat-row .stat-cell');
+      if (cells.length < 6) return;
+
+      var liveBadge = ' <span style="display:inline-block;background:rgba(74,222,128,0.2);color:var(--accent);font-size:7px;padding:1px 5px;letter-spacing:0.08em;vertical-align:middle;margin-left:4px;">LIVE</span>';
+
+      // Win Rate
+      var winRate = (d.pnl.winRate * 100).toFixed(1) + '%';
+      cells[0].querySelector('.stat-num').innerHTML = winRate;
+      cells[0].querySelector('.stat-lbl').innerHTML = 'Win Rate' + liveBadge;
+
+      // Avg Edge - keep backtest default if not available
+      // Total P&L
+      cells[2].querySelector('.stat-num').innerHTML = (d.pnl.totalPnl >= 0 ? '+$' : '-$') + Math.abs(d.pnl.totalPnl).toFixed(2);
+      cells[2].querySelector('.stat-lbl').innerHTML = 'Total P&L' + liveBadge;
+
+      // Total Trades
+      cells[3].querySelector('.stat-num').innerHTML = d.pnl.totalTrades.toLocaleString();
+      cells[3].querySelector('.stat-lbl').innerHTML = 'Trades' + liveBadge;
+
+      // Open Positions
+      cells[4].querySelector('.stat-num').innerHTML = d.pnl.openPositions;
+      cells[4].querySelector('.stat-lbl').innerHTML = 'Open Positions' + liveBadge;
+    })
+    .catch(function() {
+      // API not available, keep backtest defaults
+    });
+}
+
+fetchLiveStats();
+setInterval(fetchLiveStats, 60000);
 
 // ── Counter animation on stat numbers ──
 var statNums = document.querySelectorAll('.stat-num');
