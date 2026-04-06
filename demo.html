@@ -812,28 +812,28 @@ async function init() {
   } catch (e) {
     // Fallback demo data if API unavailable
     DATA = {
-      pnl: { totalPnl: 252397.81, winRate: 0.686, totalTrades: 210, openPositions: 24, openExposure: 13271.25 },
+      pnl: { totalPnl: 292188.85, winRate: 0.771, totalTrades: 210, openPositions: 8, openExposure: 4820.50 },
       equityCurve: Array.from({ length: 210 }, (_, i) => ({
         time: new Date(2026, 1, 16 + Math.floor(i * 47 / 210)).toISOString().slice(0, 10),
-        pnl: Math.pow(i / 210, 1.4) * 252397.81 + (Math.random() - 0.3) * 2000
+        pnl: Math.pow(i / 210, 1.4) * 292188.85 + (Math.random() - 0.3) * 2000
       })),
       cityStats: [
-        { city: 'atlanta', wins: 24, losses: 8, pnl: 33102.71 },
-        { city: 'nyc', wins: 30, losses: 12, pnl: 55231.10 },
-        { city: 'chicago', wins: 28, losses: 14, pnl: 42819.55 },
-        { city: 'miami', wins: 22, losses: 10, pnl: 38744.20 },
-        { city: 'dallas', wins: 26, losses: 11, pnl: 44192.88 },
-        { city: 'seattle', wins: 14, losses: 11, pnl: 38307.37 }
+        { city: 'atlanta', wins: 28, losses: 7, pnl: 48102.71 },
+        { city: 'nyc', wins: 34, losses: 8, pnl: 62231.10 },
+        { city: 'chicago', wins: 30, losses: 10, pnl: 49819.55 },
+        { city: 'miami', wins: 26, losses: 8, pnl: 45744.20 },
+        { city: 'dallas', wins: 28, losses: 9, pnl: 48192.88 },
+        { city: 'seattle', wins: 16, losses: 6, pnl: 38098.41 }
       ],
       positions: Array.from({ length: 10 }, (_, i) => ({
         city: ['nyc','chicago','miami','atlanta','dallas','seattle'][i % 6],
         date: '2026-04-0' + (i % 5 + 1),
-        side: i % 3 === 0 ? 'NO' : 'YES',
+        side: i % 4 === 0 ? 'NO' : 'YES',
         entryPrice: 0.3 + Math.random() * 0.5,
         size: 200 + Math.random() * 800,
         edge: 0.05 + Math.random() * 0.25,
-        status: i % 3 === 0 ? 'lost' : 'won',
-        pnl: i % 3 === 0 ? -(50 + Math.random() * 200) : (100 + Math.random() * 1500)
+        status: i % 4 === 0 ? 'lost' : 'won',
+        pnl: i % 4 === 0 ? -(50 + Math.random() * 150) : (100 + Math.random() * 1500)
       }))
     };
   }
