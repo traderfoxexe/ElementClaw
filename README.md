@@ -1,4 +1,4 @@
-# WeatherClaw
+# ElementClaw
 
 Automated weather prediction market trading bot for Polymarket. Compares NOAA GFS/ECMWF ensemble forecast probabilities against live market prices. When models say 40% but the market says 10%, the bot buys.
 
@@ -65,8 +65,8 @@ These are your tasks, in priority order:
 2. **Live trading** — bridge USDC to Polygon, set `MODE=live`, verify real orders fill
 3. **OpenClaw deployment** — provision VPS, install OpenClaw, configure cron, run 24/7 (commands are built, infrastructure is not)
 4. **Strategy tuning** — dynamic edge thresholds, bias correction, ICON third model
-5. **Website** — Next.js 14 + Tailwind marketing site at weatherclaw.xyz
-6. **Token launch** — $WCLAW on pump.fun, token gating on dashboard and OpenClaw skill
+5. **Website** — Next.js 14 + Tailwind marketing site at elementclaw.xyz
+6. **Token launch** — $ECLAW on pump.fun, token gating on dashboard and OpenClaw skill
 
 ---
 
@@ -217,7 +217,7 @@ All three commands are tested and working. `bun run scan`, `bun run settle`, `bu
    ```json
    {
      "skills": {
-       "weatherclaw": {
+       "elementclaw": {
          "POLYGON_PRIVATE_KEY": "0x...",
          "MODE": "live",
          "BANKROLL_USDC": "300",
@@ -230,9 +230,9 @@ All three commands are tested and working. `bun run scan`, `bun run settle`, `bu
    ```
 4. Set up cron:
    ```bash
-   openclaw cron add --skill weatherclaw --script scan --schedule "*/1 * * * *"
-   openclaw cron add --skill weatherclaw --script settle --schedule "0 */1 * * *"
-   openclaw cron add --skill weatherclaw --script status --schedule "0 8 * * *"
+   openclaw cron add --skill elementclaw --script scan --schedule "*/1 * * * *"
+   openclaw cron add --skill elementclaw --script settle --schedule "0 */1 * * *"
+   openclaw cron add --skill elementclaw --script status --schedule "0 8 * * *"
    ```
 5. Publish to ClawHub when ready: `clawhub publish ./openclaw`
    - Note: ClawHub uses `metadata.clawdbot` (NOT `metadata.openclaw`)
@@ -341,7 +341,7 @@ Run `bun run backtest --days 30` to get a historical baseline. Compare backtest 
 
 **Marketing website** — `web/` (new Next.js 14 project)
 - Next.js 14 + Tailwind CSS + Framer Motion, deploy on Vercel
-- Domain: weatherclaw.xyz or weatherclaw.app (~$12/year)
+- Domain: elementclaw.xyz or elementclaw.app (~$12/year)
 - Landing page: hero, live stats, how-it-works, equity curve
 - Dashboard page: token-gated, proxies bot's `/api/data` endpoint
 - Docs page: strategy explainer, OpenClaw setup guide
@@ -351,11 +351,11 @@ Run `bun run backtest --days 30` to get a historical baseline. Compare backtest 
 
 **Token gating** — `src/middleware/token-gate.ts` (new)
 - Check Solana SPL token balance before granting access
-- Three tiers: Basic (100K $WCLAW = paper), Pro (1M = live), Whale (10M = all bots)
+- Three tiers: Basic (100K $ECLAW = paper), Pro (1M = live), Whale (10M = all bots)
 - Cache balance checks for 5 minutes
 
 **Launch on pump.fun**
-- $WCLAW token, 13 SOL budget
+- $ECLAW token, 13 SOL budget
 - Prerequisites: 2+ weeks documented live P&L, website live, Twitter/X active
 - Initial buy: 5-8 SOL across 3-4 wallets, dev wallet < 5%
 
@@ -394,4 +394,4 @@ Built-in (no npm install): `bun:sqlite`, `fetch()`, `crypto.randomUUID()`, `Bun.
 
 ## License
 
-Proprietary. Token-gated access via $WCLAW.
+Proprietary. Token-gated access via $ECLAW.

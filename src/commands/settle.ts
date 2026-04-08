@@ -4,7 +4,7 @@
 // marks positions as won/lost, updates P&L, then exits.
 //
 // Usage: bun run src/commands/settle.ts
-// Cron:  openclaw cron add --skill weatherclaw --script settle --schedule "0 */1 * * *"
+// Cron:  openclaw cron add --skill elementclaw --script settle --schedule "0 */1 * * *"
 
 import { logger } from "../logger.js";
 import { initRiskState } from "../engine/risk.js";

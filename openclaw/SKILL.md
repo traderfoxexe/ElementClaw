@@ -1,15 +1,15 @@
 ---
-name: weatherclaw
+name: elementclaw
 version: 1.0.0
 description: Automated weather prediction market trading on Polymarket
-author: WeatherClaw
+author: ElementClaw
 scripts:
   - scan
   - settle
   - status
 ---
 
-# WeatherClaw
+# ElementClaw
 
 Exploits the gap between NOAA/ECMWF forecast model accuracy (85-90%) and retail Polymarket weather market pricing. GFS 31-member and ECMWF 51-member ensembles are converted into bracket probabilities, compared against live market prices, and trades are executed when the edge exceeds a configurable threshold using quarter-Kelly position sizing.
 
@@ -21,7 +21,7 @@ Exploits the gap between NOAA/ECMWF forecast model accuracy (85-90%) and retail 
 
 ## Configuration
 
-Set these in `~/.openclaw/openclaw.json` under `skills.weatherclaw`:
+Set these in `~/.openclaw/openclaw.json` under `skills.elementclaw`:
 
 | Key | Required | Default | Description |
 |-----|----------|---------|-------------|
@@ -39,9 +39,9 @@ Set these in `~/.openclaw/openclaw.json` under `skills.weatherclaw`:
 ## Cron Setup
 
 ```bash
-openclaw cron add --skill weatherclaw --script scan --schedule "*/1 * * * *"
-openclaw cron add --skill weatherclaw --script settle --schedule "0 */1 * * *"
-openclaw cron add --skill weatherclaw --script status --schedule "0 8 * * *"
+openclaw cron add --skill elementclaw --script scan --schedule "*/1 * * * *"
+openclaw cron add --skill elementclaw --script settle --schedule "0 */1 * * *"
+openclaw cron add --skill elementclaw --script status --schedule "0 8 * * *"
 ```
 
 ## Requirements

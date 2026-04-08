@@ -4,7 +4,7 @@
 // executes trades (paper or live), then exits.
 //
 // Usage: bun run src/commands/scan.ts
-// Cron:  openclaw cron add --skill weatherclaw --script scan --schedule "*/1 * * * *"
+// Cron:  openclaw cron add --skill elementclaw --script scan --schedule "*/1 * * * *"
 
 import { logger } from "../logger.js";
 import { loadConfig, CITIES } from "../config.js";

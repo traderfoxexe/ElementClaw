@@ -1,4 +1,4 @@
-# WeatherClaw — Claude Code Instructions
+# ElementClaw — Claude Code Instructions
 
 ## What This Is
 

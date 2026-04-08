@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # scan.sh — OpenClaw wrapper for the scan command
-# Triggered by: openclaw cron add --skill weatherclaw --script scan --schedule "*/1 * * * *"
+# Triggered by: openclaw cron add --skill elementclaw --script scan --schedule "*/1 * * * *"
 
 set -euo pipefail
 

@@ -4,7 +4,7 @@
  * Prints current positions, P&L stats, and risk state to stdout, then exits.
  *
  * Usage: bun run src/commands/status.ts
- * Cron:  openclaw cron add --skill weatherclaw --script status --schedule "0 8 * * *"
+ * Cron:  openclaw cron add --skill elementclaw --script status --schedule "0 8 * * *"
  */
 
 import { loadConfig } from "../config.js";

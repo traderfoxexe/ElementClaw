@@ -1,4 +1,4 @@
-# WeatherClaw Roadmap
+# ElementClaw Roadmap
 
 ## What's Done
 
@@ -127,7 +127,7 @@ The one-shot commands and skill package are already built. You need a VPS as the
 [ ] Configure secrets in ~/.openclaw/openclaw.json:
       {
         "skills": {
-          "weatherclaw": {
+          "elementclaw": {
             "POLYGON_PRIVATE_KEY": "0x...",
             "MODE": "live",
             "BANKROLL_USDC": "300",
@@ -138,9 +138,9 @@ The one-shot commands and skill package are already built. You need a VPS as the
         }
       }
 [ ] Set up cron schedules:
-      openclaw cron add --skill weatherclaw --script scan --schedule "*/1 * * * *"
-      openclaw cron add --skill weatherclaw --script settle --schedule "0 */1 * * *"
-      openclaw cron add --skill weatherclaw --script status --schedule "0 8 * * *"
+      openclaw cron add --skill elementclaw --script scan --schedule "*/1 * * * *"
+      openclaw cron add --skill elementclaw --script settle --schedule "0 */1 * * *"
+      openclaw cron add --skill elementclaw --script status --schedule "0 8 * * *"
 [ ] Verify: scan runs every minute, settle runs every hour, status runs at 8 AM
 [ ] Bridge remaining capital — total $300 USDC on Polygon
 [ ] Update BANKROLL_USDC in openclaw.json
@@ -171,7 +171,7 @@ The one-shot commands and skill package are already built. You need a VPS as the
 **Goal:** Professional website + Twitter/X presence for the token narrative.
 
 ```
-[ ] Buy domain: weatherclaw.xyz (~$12/year)
+[ ] Buy domain: elementclaw.xyz (~$12/year)
 [ ] Scaffold Next.js 14 + Tailwind CSS + Framer Motion in web/ directory
 [ ] Landing page:
     - Hero: "NOAA spends $1B/year on forecasting. This bot turns that into profit."
@@ -179,7 +179,7 @@ The one-shot commands and skill package are already built. You need a VPS as the
     - Equity curve chart (real data)
     - Stats cards: win rate, P&L, trades, positions
     - How-it-works 3-step visual
-    - CTA: "Hold $WCLAW to run the bot"
+    - CTA: "Hold $ECLAW to run the bot"
 [ ] Dashboard page (token-gated):
     - Proxy bot's /api/data endpoint
     - Real-time positions, equity curve, city heatmap
@@ -189,7 +189,7 @@ The one-shot commands and skill package are already built. You need a VPS as the
     - API reference
 [ ] Deploy to Vercel (free tier), point domain
 [ ] Design: #0a0e17 background, #06b6d4 cyan accent, JetBrains Mono, glassmorphism
-[ ] Create Twitter/X account @WeatherClaw
+[ ] Create Twitter/X account @ElementClaw
 [ ] Daily tweet cadence:
     - Morning: yesterday's settlement results with dashboard screenshot
     - Afternoon: strategy insight or market observation
@@ -208,12 +208,12 @@ The one-shot commands and skill package are already built. You need a VPS as the
 
 ### Phase 5: Token Launch (Week 5)
 
-**Goal:** Launch $WCLAW on pump.fun. Token-gate the dashboard and OpenClaw skill.
+**Goal:** Launch $ECLAW on pump.fun. Token-gate the dashboard and OpenClaw skill.
 
 **Prerequisites — all must be true before launching:**
 - 2+ weeks of documented live trading results
 - Positive P&L with real money
-- Website live at weatherclaw.xyz
+- Website live at elementclaw.xyz
 - OpenClaw skill running on cron
 - Twitter/X account with daily P&L posts
 - Telegram group with 50+ members
@@ -227,7 +227,7 @@ The one-shot commands and skill package are already built. You need a VPS as the
 [ ] Test token gate: wallet with tokens = access, without = 403
 [ ] Pre-launch tweets (3-5 days before): "Something is coming. NOAA meets DeFi."
 [ ] Deploy token on pump.fun:
-    - Name: WeatherClaw, Symbol: WCLAW
+    - Name: ElementClaw, Symbol: ECLAW
     - Initial buy: 5-8 SOL across 3-4 wallets
     - Dev wallet < 5% of supply
     - 13 SOL total budget
@@ -246,28 +246,28 @@ The one-shot commands and skill package are already built. You need a VPS as the
 | Tier | Requirement | Access |
 |------|-------------|--------|
 | Free | None | Website, docs, strategy explainer |
-| Basic | 100K $WCLAW | Paper mode dashboard, signals feed |
-| Pro | 1M $WCLAW | Live mode, real-time signals, API access |
-| Whale | 10M $WCLAW | All bots, priority execution, custom config |
+| Basic | 100K $ECLAW | Paper mode dashboard, signals feed |
+| Pro | 1M $ECLAW | Live mode, real-time signals, API access |
+| Whale | 10M $ECLAW | All bots, priority execution, custom config |
 
 ---
 
 ### Phase 6: Multi-Bot Expansion (Week 6-8)
 
-**Goal:** More bots = more utility for $WCLAW holders.
+**Goal:** More bots = more utility for $ECLAW holders.
 
-Each bot becomes a new OpenClaw skill, token-gated behind $WCLAW.
+Each bot becomes a new OpenClaw skill, token-gated behind $ECLAW.
 
 ```
 [ ] Build CrossArb (Polymarket vs Kalshi price differences)
 [ ] Build SportsClaw (sharp line vs oracle lag — Pinnacle → Azuro/Overtime)
 [ ] Build MakerClaw (market making — needs $5K+ capital)
-[ ] Each bot: paper test → live test → add to $WCLAW token gate
+[ ] Each bot: paper test → live test → add to $ECLAW token gate
 [ ] Website shows all active bots
 [ ] Leaderboard page for multi-user P&L rankings
 ```
 
-**Flywheel:** More bots → more $WCLAW utility → more demand → token price → more attention → more capital → more profit share → more buyback + burn → repeat.
+**Flywheel:** More bots → more $ECLAW utility → more demand → token price → more attention → more capital → more profit share → more buyback + burn → repeat.
 
 ---
 
@@ -306,4 +306,4 @@ Week 6+: Add more bots, grow community, scale
 - Token price can go to zero
 - This is not financial advice
 - Users trade at their own risk with their own capital
-- WeatherClaw does not custody user funds
+- ElementClaw does not custody user funds

@@ -336,7 +336,7 @@ async function main() {
     if (args[i] === "--city" && args[i + 1]) city = args[i + 1];
   }
 
-  console.log(`\nWeatherClaw Backtest — ${days} days${city ? `, ${city} only` : ", all cities"}\n`);
+  console.log(`\nElementClaw Backtest — ${days} days${city ? `, ${city} only` : ", all cities"}\n`);
 
   const result = await runBacktest(days, city);
 

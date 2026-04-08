@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # settle.sh — OpenClaw wrapper for the settle command
-# Triggered by: openclaw cron add --skill weatherclaw --script settle --schedule "0 */1 * * *"
+# Triggered by: openclaw cron add --skill elementclaw --script settle --schedule "0 */1 * * *"
 
 set -euo pipefail
 

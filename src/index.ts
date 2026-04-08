@@ -21,7 +21,7 @@ const ECMWF_REFRESH_MS = 30 * 60 * 1000; // 30 minutes (less frequent)
 
 async function main() {
   const config = loadConfig();
-  logger.info({ mode: config.mode, bankroll: config.bankrollUsdc }, "WeatherClaw starting");
+  logger.info({ mode: config.mode, bankroll: config.bankrollUsdc }, "ElementClaw starting");
 
   // Initialize risk state from DB
   initRiskState();

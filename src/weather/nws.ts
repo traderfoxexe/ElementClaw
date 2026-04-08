@@ -33,7 +33,7 @@ export async function fetchNWSForecast(city: CityConfig): Promise<NWSForecast | 
   try {
     const url = `https://api.weather.gov/gridpoints/${city.nwsGridId}/${city.nwsGridX},${city.nwsGridY}/forecast`;
     const res = await fetchWithRetry(url, {
-      headers: { "User-Agent": "WeatherClaw/1.0 (weather-bot)" },
+      headers: { "User-Agent": "ElementClaw/1.0 (weather-bot)" },
     });
 
     if (!res.ok) {
